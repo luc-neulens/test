@@ -19,6 +19,7 @@ import static org.junit.Assert.assertTrue;
 public class TestRestTemplateBasicLiveTest {
 
     private RestTemplate restTemplate;
+    private RestTemplateBuilder restTemplateBuilder;
 
     private static final String FOO_RESOURCE_URL = "http://localhost:" + 8082 + "/spring-rest/foos";
     private static final String URL_SECURED_BY_AUTHENTICATION = "http://httpbin.org/basic-auth/user/passwd";
@@ -27,19 +28,21 @@ public class TestRestTemplateBasicLiveTest {
     @Before
     public void beforeTest() {
         restTemplate = new RestTemplate();
+        restTemplateBuilder = new RestTemplateBuilder();
+        restTemplateBuilder.build();
     }
 
     // GET
     @Test
     public void givenTestRestTemplate_whenSendGetForEntity_thenStatusOk() {
-        TestRestTemplate testRestTemplate = new TestRestTemplate();
+        TestRestTemplate testRestTemplate = new TestRestTemplate(restTemplateBuilder);
         ResponseEntity<String> response = testRestTemplate.getForEntity(FOO_RESOURCE_URL + "/1", String.class);
         assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
     }
 
     @Test
     public void givenRestTemplateWrapper_whenSendGetForEntity_thenStatusOk() {
-        TestRestTemplate testRestTemplate = new TestRestTemplate(restTemplate);
+        TestRestTemplate testRestTemplate = new TestRestTemplate(restTemplateBuilder);
         ResponseEntity<String> response = testRestTemplate.getForEntity(FOO_RESOURCE_URL + "/1", String.class);
         assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
     }
@@ -55,7 +58,7 @@ public class TestRestTemplateBasicLiveTest {
 
     @Test
     public void givenRestTemplateWrapperWithCredentials_whenSendGetForEntity_thenStatusOk() {
-        TestRestTemplate testRestTemplate = new TestRestTemplate(restTemplate, "user", "passwd");
+        TestRestTemplate testRestTemplate = new TestRestTemplate(restTemplateBuilder, "user", "passwd");
         ResponseEntity<String> response = testRestTemplate.getForEntity(URL_SECURED_BY_AUTHENTICATION,
                 String.class);
         assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
@@ -63,7 +66,7 @@ public class TestRestTemplateBasicLiveTest {
 
     @Test
     public void givenTestRestTemplateWithCredentials_whenSendGetForEntity_thenStatusOk() {
-        TestRestTemplate testRestTemplate = new TestRestTemplate("user", "passwd");
+        TestRestTemplate testRestTemplate = new TestRestTemplate(restTemplateBuilder, "user", "passwd");
         ResponseEntity<String> response = testRestTemplate.getForEntity(URL_SECURED_BY_AUTHENTICATION,
                 String.class);
         assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
@@ -71,7 +74,7 @@ public class TestRestTemplateBasicLiveTest {
 
     @Test
     public void givenTestRestTemplateWithBasicAuth_whenSendGetForEntity_thenStatusOk() {
-        TestRestTemplate testRestTemplate = new TestRestTemplate();
+        TestRestTemplate testRestTemplate = new TestRestTemplate(restTemplateBuilder);
         ResponseEntity<String> response = testRestTemplate.withBasicAuth("user", "passwd").
                 getForEntity(URL_SECURED_BY_AUTHENTICATION, String.class);
         assertThat(response.getStatusCode(), equalTo(HttpStatus.OK));
