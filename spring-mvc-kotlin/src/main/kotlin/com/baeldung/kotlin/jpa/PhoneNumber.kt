@@ -5,6 +5,8 @@ import javax.persistence.Entity
 import javax.persistence.GeneratedValue
 import javax.persistence.GenerationType
 import javax.persistence.Id
+import javax.persistence.ManyToMany
+
 
 @Entity
 data class PhoneNumber(
@@ -12,4 +14,7 @@ data class PhoneNumber(
         @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Int,
         @Column(nullable = false)
-        val number: String)
+        val number: String,
+        @ManyToMany(mappedBy = "phoneNumbers")
+	var persons: Set<Person>? = null
+        )

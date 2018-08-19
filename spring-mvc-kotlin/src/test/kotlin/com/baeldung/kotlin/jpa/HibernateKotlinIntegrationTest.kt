@@ -31,7 +31,7 @@ class HibernateKotlinIntegrationTest : BaseCoreFunctionalTestCase() {
     @Test
     fun givenPersonWithFullData_whenSaved_thenFound() {
         doInHibernate(({ this.sessionFactory() }), { session ->
-            val personToSave = Person(0, "John", "jhon@test.com", Arrays.asList(PhoneNumber(0, "202-555-0171"), PhoneNumber(0, "202-555-0102")))
+            val personToSave = Person(0, "John", "jhon@test.com", HashSet(Arrays.asList(PhoneNumber(0, "202-555-0171"), PhoneNumber(0, "202-555-0102"))))
             session.persist(personToSave)
             val personFound = session.find(Person::class.java, personToSave.id)
             session.refresh(personFound)
