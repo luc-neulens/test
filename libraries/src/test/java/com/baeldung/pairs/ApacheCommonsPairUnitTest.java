@@ -13,7 +13,7 @@ public class ApacheCommonsPairUnitTest {
         String value = "Five";
 
         MutablePair<Integer, String> mutablePair = new MutablePair<>(key, value);
-        Assert.assertTrue(mutablePair.getKey() == key);
+        Assert.assertEquals((int) mutablePair.getKey(), key);
         Assert.assertEquals(mutablePair.getValue(), value);
     }
 
@@ -24,7 +24,7 @@ public class ApacheCommonsPairUnitTest {
         String newValue = "New Six";
 
         MutablePair<Integer, String> mutablePair = new MutablePair<>(key, value);
-        Assert.assertTrue(mutablePair.getKey() == key);
+        Assert.assertEquals((int) mutablePair.getKey(), key);
         Assert.assertEquals(mutablePair.getValue(), value);
         mutablePair.setValue(newValue);
         Assert.assertEquals(mutablePair.getValue(), newValue);
@@ -36,7 +36,7 @@ public class ApacheCommonsPairUnitTest {
         String value = "Two";
 
         ImmutablePair<Integer, String> immutablePair = new ImmutablePair<>(key, value);
-        Assert.assertTrue(immutablePair.getKey() == key);
+        Assert.assertEquals((int) immutablePair.getKey(), key);
         Assert.assertEquals(immutablePair.getValue(), value);
     }
 

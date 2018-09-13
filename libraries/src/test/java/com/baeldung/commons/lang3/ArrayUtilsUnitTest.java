@@ -5,6 +5,8 @@ import org.junit.Test;
 
 import static org.junit.Assert.assertArrayEquals;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class ArrayUtilsUnitTest {
     @Test
@@ -76,8 +78,8 @@ public class ArrayUtilsUnitTest {
         int[] array = { 1, 3, 5, 7, 9 };
         boolean evenContained = ArrayUtils.contains(array, 2);
         boolean oddContained = ArrayUtils.contains(array, 7);
-        assertEquals(false, evenContained);
-        assertEquals(true, oddContained);
+        assertFalse(evenContained);
+        assertTrue(oddContained);
     }
 
     @Test

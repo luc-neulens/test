@@ -14,7 +14,7 @@ public class VavrPairsUnitTest {
         Tuple2<String, Double> pair = new Tuple2<>(key, value);
 
         pair = pair.update2(newValue);
-        Assert.assertTrue(newValue == pair._2());
+        Assert.assertEquals(newValue, pair._2(), 0.0);
     }
 
     @Test
@@ -24,6 +24,6 @@ public class VavrPairsUnitTest {
 
         Tuple2<String, Double> pair = new Tuple2<>(key, value);
 
-        Assert.assertTrue(value == pair._2());
+        Assert.assertEquals(value, pair._2(), 0.0);
     }
 }
